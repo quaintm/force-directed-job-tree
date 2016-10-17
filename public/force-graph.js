@@ -154,17 +154,19 @@ d3.json("miserables.json", function(error, graph) {
     };
   }
 
-  //search functionality !!THIS DOESNT WORK!!
+  //search functionality
   var optArray = [];
   for (var i = 0; i < graph.nodes.length - 1; i++) {
+    optArray.push(graph.nodes[i].id);
   }
   optArray = optArray.sort();
+
   $(function () {
       $("#search").autocomplete({
           source: optArray
       });
 
-      $("#search").click(function(){
+      $("#submitSearch").on("click",function(){
         var selectedVal = document.getElementById('search').value;
         var node = svg.selectAll(".node");
         if (selectedVal == "none") {
@@ -179,7 +181,7 @@ d3.json("miserables.json", function(error, graph) {
             d3.selectAll(".node, .link").transition()
                 .duration(5000)
                 .style("opacity", 1);
-          });
+          };
       });
   });
 
