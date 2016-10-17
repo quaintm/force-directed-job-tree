@@ -1,28 +1,12 @@
-var http = require("http");
-var fs = require('fs');
-var port = 3000;
-var serverUrl = "127.0.0.1";
-var counter = 0;
+var express = require('express');
+var app = express();
 
-var server = http.createServer(function(req, res) {
-
-  
-  if(req.url == "/index.html") {
-    fs.readFile("index.html", function(err, text){
-      res.setHeader("Content-Type", "text/html");
-      res.end(text);
-    });
-  }
-
-  if (req.url == "/miserables.json") {
-    console.log("requesting json");
-    fs.readFile('miserables.json', function(err, text) {
-      res.setHeader("Content-Type", "text/json");
-      res.end(text);
-    });
-  }
-
+app.get('/', function (req, res) {
+  res.send('Hello World!');
 });
 
-console.log("Starting web server at " + serverUrl + ":" + port);
-server.listen(port, serverUrl);
+app.use(express.static('public'));
+
+app.listen(3000, function () {
+  console.log('Listening on port 3000');
+});
