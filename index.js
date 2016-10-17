@@ -21,7 +21,6 @@ var server = http.createServer(function(req, res) {
       res.end(text);
     });
   }
-
 });
 
 console.log("Starting web server at " + serverUrl + ":" + port);
