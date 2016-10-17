@@ -6,21 +6,21 @@ var counter = 0;
 
 var server = http.createServer(function(req, res) {
 
-  counter++;
-  console.log("Request: " + req.url + " (" + counter + ")");
   
   if(req.url == "/index.html") {
-
     fs.readFile("index.html", function(err, text){
       res.setHeader("Content-Type", "text/html");
       res.end(text);
     });
-    return;
-
   }
 
-  res.setHeader("Content-Type", "text/html");
-  res.end("<p>Hello World. Request counter: " + counter + ".</p>");
+  if (req.url == "/miserables.json") {
+    console.log("requesting json");
+    fs.readFile('miserables.json', function(err, text) {
+      res.setHeader("Content-Type", "text/json");
+      res.end(text);
+    });
+  }
 
 });
 
