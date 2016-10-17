@@ -1,0 +1,27 @@
+{
+  "name": "force-directed-job-tree",
+  "version": "1.0.0",
+  "description": "Force-directed job tree graph",
+  "main": "index.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quaintm/force-directed-job-tree.git"
+  },
+  "keywords": [
+    "Force-directed",
+    "d3",
+    "job"
+  ],
+  "author": "quaintm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quaintm/force-directed-job-tree/issues"
+  },
+  "homepage": "https://github.com/quaintm/force-directed-job-tree#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
