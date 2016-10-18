@@ -4,7 +4,7 @@
 var svg = d3.select("div#container")
   .append("svg")
   .attr("preserveAspectRatio", "xMinYMin meet")
-  .attr("viewBox", "0 0 1000 600")
+  .attr("viewBox", "0 0 1200 800")
   .classed("svg-content", true);
 
 // expanded d3 color scheme set
