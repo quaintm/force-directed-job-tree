@@ -1,10 +1,16 @@
+// d3.js force-directed graph definitions
 
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+// dynamic rescaling of svg graphic
+var svg = d3.select("div#container")
+  .append("svg")
+  .attr("preserveAspectRatio", "xMinYMin meet")
+  .attr("viewBox", "0 0 1000 600")
+  .classed("svg-content", true);
 
+// expanded d3 color scheme set
 var color = d3.scaleOrdinal(d3.schemeSet2);
 
+// dynamic rescaling of body force based on graph width and height
 var w = window,
   d = document,
   e = d.documentElement,
@@ -20,13 +26,12 @@ var img_h = 24;
 var radius = 6;
 var k = Math.sqrt(40 / (width * height));
 
-
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(20))
     .force("charge", d3.forceManyBody().strength(-4 / k))
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-//d3 attributes
+// force graph attributes
 d3.json("job-tree.json", function(error, graph) {
   if (error) throw error;
 
@@ -48,13 +53,13 @@ d3.json("job-tree.json", function(error, graph) {
     .attr("viewBox", "0 -5 10 10")
     .attr("refX", 25)
     .attr("refY", 0)
-    .attr("markerWidth", 6)
+    .attr("markerWidth", 10)
     .attr("markerHeight", 6)
     .attr("orient", "auto")
   .append("path")
     .attr("d", "M0,-5L10,0L0,5 L10,0 L0, -5")
     .style("stroke", "#4679BD")
-    .style("opacity", "0.6");
+    .style("opacity", "0.9");
 
   //node groups
   var gnodes = svg.selectAll('g.gnode')
@@ -97,7 +102,8 @@ d3.json("job-tree.json", function(error, graph) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    // Translate the groups
+    // Translate node groups back to nodes
+    // TODO: bind node position by svg height / width
     gnodes
         .attr("transform", function(d) { 
           return 'translate(' + [d.x, d.y] + ')'; 
@@ -149,7 +155,6 @@ d3.json("job-tree.json", function(error, graph) {
   var padding = 2, // separation between circles
       radius=10;
   function collide(alpha) {
-    //debugger
     var quadtree = d3.quadtree(graph.nodes);
     return function(d) {
       var rb = 2*radius + padding,
@@ -175,7 +180,7 @@ d3.json("job-tree.json", function(error, graph) {
     };
   }
 
-  //search functionality
+  // jquery search functionality
   var optArray = [];
   for (var i = 0; i < graph.nodes.length - 1; i++) {
     optArray.push(graph.nodes[i].name);
@@ -208,7 +213,7 @@ d3.json("job-tree.json", function(error, graph) {
 
 });
 
-
+// drag to pin
 function dragstarted(d) {
   if (!d3.event.active) simulation.alphaTarget(0.3).restart();
   d.fx = d.x;
